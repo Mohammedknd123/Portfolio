@@ -11,20 +11,21 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setIsSubmitted(true);
 
     try {
       await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        e.currentTarget,
+        form,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       );
       toast({
         title: "Message Sent!",
         description: "Thank you for your message, I'll get back to you soon.",
       });
-      e.currentTarget.reset();
+      form.reset();
     } catch {
       toast({
         title: "Message Not Sent",
